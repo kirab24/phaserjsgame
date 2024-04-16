@@ -42,6 +42,8 @@ class MainScene extends Phaser.Scene {
         let scale = Math.max(scaleX, scaleY);
         bg.setScale(scale).setScrollFactor(0);
 
+
+        this.slimesKilled = 0;
         this.slimesKilledText = this.add.text(16, 16, 'Slimes Killed: 0', { fontSize: '32px', fill: '#000' });
     
         this.platforms = this.physics.add.staticGroup();
@@ -107,15 +109,18 @@ class MainScene extends Phaser.Scene {
     }
 
     updateSlimeMovement(slime) {
+        // Check if slime is moving left or right and flip accordingly
+        if (slime.body.velocity.x < 0) {
+            slime.flipX = true; // Flip sprite to face left if moving left
+        } else if (slime.body.velocity.x > 0) {
+            slime.flipX = false; // Don't flip sprite (face right) if moving right
+        }
+    
         // Reverse direction at world bounds
         if (slime.body.blocked.left || slime.body.blocked.right) {
             slime.direction *= -1;
         }
         slime.setVelocityX(50 * slime.direction);
-        slime.flipX = slime.direction < 0; // Flip based on direction
-
-        // If moving, play walk animation, otherwise play idle
-        // This example assumes only a single frame for walking, so no animation is set here
     }
 
     spawnSlimes() {
