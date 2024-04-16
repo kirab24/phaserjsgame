@@ -4,21 +4,18 @@ class IntroScene extends Phaser.Scene {
     }
 
     preload() {
-        // Preload the background image
-        //this.load.image('introBackground', 'path/to/your/introBackground.png'); // Update the path as necessary
-
-        // Preload the game music and button click sound effect
+        // Preloading the title screen background along with the other assets
+        this.load.image('titleScreenBackground', 'assets/backgrounds/TitleScreen.png');
         this.load.audio('gameMusic', 'assets/sounds/GameMusic.wav');
         this.load.audio('buttonClick', 'assets/sounds/buttoneffect.mp3');
     }
 
     create() {
-        this.cameras.main.setBackgroundColor('#C8A2C8');
 
-        // Adding a background image
-        //this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'introBackground').setOrigin(0.5);
+        // Adding the title screen background image
+        this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'titleScreenBackground').setOrigin(0.5);
 
-        // Display animated game title
+        // Displaying animated game title
         let titleText = this.add.text(this.cameras.main.centerX, 100, 'Welcome to Chiikawa The Slayer!', { fontFamily: '"Luckiest Guy"', fontSize: '48px', fill: '#ff1493' }).setOrigin(0.5);
         this.tweens.add({
             targets: titleText,
@@ -29,7 +26,7 @@ class IntroScene extends Phaser.Scene {
             repeat: -1
         });
 
-        // Animated rules text
+        // Rules text with a subtle entrance animation
         let rulesText = this.add.text(this.cameras.main.centerX, 200, 'Rules:\n1. Avoid ghosts.\n2. Jump on slimes to defeat them.\n3. Win by defeating 15 slimes.', { fontFamily: '"Luckiest Guy"', fontSize: '24px', fill: '#fff' }).setOrigin(0.5);
         rulesText.alpha = 0;
         this.tweens.add({
@@ -46,14 +43,6 @@ class IntroScene extends Phaser.Scene {
         startButton.on('pointerdown', () => {
             this.sound.play('buttonClick', { volume: 1.0 }); // Play button click sound
             this.scene.start('MainScene'); // Transition to MainScene
-        });
-
-        // Optional particle effects for additional flair
-        let particles = this.add.particles('sparkle');
-        particles.createEmitter({
-            speed: 100,
-            scale: { start: 0.5, end: 0 },
-            blendMode: 'ADD',
         });
 
         // Play the background music loaded in the preload method
