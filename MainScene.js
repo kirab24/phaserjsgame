@@ -41,6 +41,7 @@ class MainScene extends Phaser.Scene {
         let scaleY = this.cameras.main.height / bg.height;
         let scale = Math.max(scaleX, scaleY);
         bg.setScale(scale).setScrollFactor(0);
+
         this.slimesKilledText = this.add.text(16, 16, 'Slimes Killed: 0', { fontSize: '32px', fill: '#000' });
     
         this.platforms = this.physics.add.staticGroup();
@@ -105,36 +106,48 @@ class MainScene extends Phaser.Scene {
         });
     }
 
-     spawnSlimes() {
-        const numSlimes = Phaser.Math.Between(2, 5); // Spawn between 2 and 5 slimes
+    updateSlimeMovement(slime) {
+        // Reverse direction at world bounds
+        if (slime.body.blocked.left || slime.body.blocked.right) {
+            slime.direction *= -1;
+        }
+        slime.setVelocityX(50 * slime.direction);
+        slime.flipX = slime.direction < 0; // Flip based on direction
+
+        // If moving, play walk animation, otherwise play idle
+        // This example assumes only a single frame for walking, so no animation is set here
+    }
+
+    spawnSlimes() {
+        const numSlimes = Phaser.Math.Between(2, 5);
         for (let i = 0; i < numSlimes; i++) {
-            const xPosition = Phaser.Math.Between(50, 950); // Ensure they spawn within the game bounds
-            this.slime = this.slimes.create(xPosition, 500, 'slime').setScale(0.5);
-            this.slime.setCollideWorldBounds(true);
-            this.slime.setVelocityX(Phaser.Math.Between(-50, 50)); // Give some initial random movement
-            this.slime.setBounce(1);
+            const xPosition = Phaser.Math.Between(50, 950);
+            let slime = this.slimes.create(xPosition, 500, 'slime').setScale(0.5);
+            slime.setBounce(0.5);
+            slime.setCollideWorldBounds(true);
+            slime.setVelocityX(Phaser.Math.Between(-50, 50));
+            slime.direction = slime.body.velocity.x > 0 ? 1 : -1; // Determine initial direction
         }
     }
 
 
     hitSlime(player, slime) {
-        if (this.player.body.touching.down && slime.body.touching.up) {
-            this.player.setVelocityY(-100); // Bounce off
-            slime.disableBody(true, true); // Effectively "kill" the slime
+        if (player.body.touching.down && slime.body.touching.up) {
+            player.setVelocityY(-100); // Bounce off
+            slime.setTexture('slime_squashed'); // Change to squashed texture
+            this.time.delayedCall(500, () => {
+                slime.disableBody(true, true); // Remove slime after a delay
+            });
             this.slimesKilled++;
-            this.slimesKilledText.setText('Slimes Killed: ' + this.slimesKilled); // Update the counter display
-    
-            // Check if all slimes are killed and total killed is still under 15
+            this.slimesKilledText.setText('Slimes Killed: ' + this.slimesKilled);
             if (this.slimesKilled < 15 && this.slimes.countActive(true) === 0) {
-                this.spawnSlimes(); 
+                this.spawnSlimes(); // Respawn slimes if needed
             }
-    
             if (this.slimesKilled >= 15) {
-                // Implement game win logic here
-                console.log('You win!');
+                console.log('You win!'); // Handle winning condition
             }
         } else {
-            this.resetGame(); 
+            this.resetGame(); // Player dies if not landing on top
         }
     }
     
@@ -158,7 +171,11 @@ class MainScene extends Phaser.Scene {
 
         if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-200);
-        }
+         }
+         
+         this.slimes.children.iterate((slime) => {
+            this.updateSlimeMovement(slime);
+        });
     }
 
     showDeathScreen() {
