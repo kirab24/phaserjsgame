@@ -155,30 +155,42 @@ class MainScene extends Phaser.Scene {
         }
     }
 
-     showDeathScreen() {
+    showDeathScreen() {
         // Create a semi-transparent overlay
         this.add.rectangle(500, 300, 1000, 600, 0xC8A2C8, 0.5);
-
+    
         let deathText = this.add.text(500, 200, 'You Died!', { 
             fontFamily: '"Luckiest Guy"', 
             fontSize: '64px', 
             fill: '#ff1493' // Soft pink color for a cute look
-        });
-        deathText.setOrigin(0.5);
-
-        let restartButton = this.add.text(500, 400, 'Restart', { 
+        }).setOrigin(0.5);
+    
+        let restartButton = this.add.text(500, 350, 'Restart', { 
             fontFamily: '"Luckiest Guy"', 
             fontSize: '32px', 
             fill: '#ff69b4'
-        })
-        .setInteractive({ useHandCursor: true }) 
-        .setOrigin(0.5);
-
-        // When the button is clicked, restart the game
+        }).setInteractive({ useHandCursor: true }) 
+          .setOrigin(0.5);
+    
+        // When the restart button is clicked, restart the game
         restartButton.on('pointerdown', () => {
             this.scene.restart(); // Restart the current scene
         });
+    
+        // button to go back to the main menu/intro screen
+        let mainMenuButton = this.add.text(500, 450, 'Main Menu', { 
+            fontFamily: '"Luckiest Guy"', 
+            fontSize: '32px', 
+            fill: '#ff69b4'
+        }).setInteractive({ useHandCursor: true })
+          .setOrigin(0.5);
+    
+        // When the main menu button is clicked, start the intro scene
+        mainMenuButton.on('pointerdown', () => {
+            this.scene.start('IntroScene'); // Transition to the IntroScene
+        });
     }
+    
 
 
 
