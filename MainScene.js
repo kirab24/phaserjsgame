@@ -111,9 +111,9 @@ class MainScene extends Phaser.Scene {
     updateSlimeMovement(slime) {
         // Check if slime is moving left or right and flip accordingly
         if (slime.body.velocity.x < 0) {
-            slime.flipX = true; // Flip sprite to face left if moving left
+            slime.flipX = false; // Don't flip sprite if moving left (default faces left)
         } else if (slime.body.velocity.x > 0) {
-            slime.flipX = false; // Don't flip sprite (face right) if moving right
+            slime.flipX = true; // Flip sprite to face right if moving right
         }
     
         // Reverse direction at world bounds
