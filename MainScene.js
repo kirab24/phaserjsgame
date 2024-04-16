@@ -30,11 +30,17 @@ class MainScene extends Phaser.Scene {
         this.load.image('slime', 'assets/enemies/slime.png');
 
         this.load.atlas('chiikawa', 'assets/Chiikawa/spritesheetChiikawa.png', 'assets/Chiikawa/spritesheetChiikawa.json');
-
+        this.load.image('background', 'assets/backgrounds/Main.png');
     }
 
-     create() {
-        this.cameras.main.setBackgroundColor('#87CEEB');
+    create() {
+        let bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'background').setOrigin(0.5);
+    
+        // Calculate the scale required for the image to fill the screen
+        let scaleX = this.cameras.main.width / bg.width;
+        let scaleY = this.cameras.main.height / bg.height;
+        let scale = Math.max(scaleX, scaleY);
+        bg.setScale(scale).setScrollFactor(0);
         this.slimesKilledText = this.add.text(16, 16, 'Slimes Killed: 0', { fontSize: '32px', fill: '#000' });
     
         this.platforms = this.physics.add.staticGroup();
