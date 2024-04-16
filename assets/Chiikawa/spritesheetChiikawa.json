@@ -1,0 +1,175 @@
+{
+	"frames": {
+		"chiikawaBack.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 225,
+				"h": 225
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 225,
+				"h": 225
+			},
+			"sourceSize": {
+				"w": 225,
+				"h": 225
+			}
+		},
+		"chiikawaFront.png": {
+			"frame": {
+				"x": 228,
+				"y": 1,
+				"w": 225,
+				"h": 225
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 225,
+				"h": 225
+			},
+			"sourceSize": {
+				"w": 225,
+				"h": 225
+			}
+		},
+		"chiikawaLeft.png": {
+			"frame": {
+				"x": 1,
+				"y": 228,
+				"w": 225,
+				"h": 225
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 225,
+				"h": 225
+			},
+			"sourceSize": {
+				"w": 225,
+				"h": 225
+			}
+		},
+		"chiikawaRight.png": {
+			"frame": {
+				"x": 228,
+				"y": 228,
+				"w": 225,
+				"h": 225
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 225,
+				"h": 225
+			},
+			"sourceSize": {
+				"w": 225,
+				"h": 225
+			}
+		},
+		"chiikawaRunLeft1.png": {
+			"frame": {
+				"x": 455,
+				"y": 1,
+				"w": 225,
+				"h": 225
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 225,
+				"h": 225
+			},
+			"sourceSize": {
+				"w": 225,
+				"h": 225
+			}
+		},
+		"chiikawaRunLeft2.png": {
+			"frame": {
+				"x": 455,
+				"y": 228,
+				"w": 225,
+				"h": 225
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 225,
+				"h": 225
+			},
+			"sourceSize": {
+				"w": 225,
+				"h": 225
+			}
+		},
+		"chiikawaRunRight1.png": {
+			"frame": {
+				"x": 1,
+				"y": 455,
+				"w": 225,
+				"h": 225
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 225,
+				"h": 225
+			},
+			"sourceSize": {
+				"w": 225,
+				"h": 225
+			}
+		},
+		"chiikawaRunRight2.png": {
+			"frame": {
+				"x": 228,
+				"y": 455,
+				"w": 225,
+				"h": 225
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 225,
+				"h": 225
+			},
+			"sourceSize": {
+				"w": 225,
+				"h": 225
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 681,
+			"h": 681
+		},
+		"scale": "1"
+	}
+}
