@@ -9,7 +9,7 @@ class IntroScene extends Phaser.Scene {
 
         // Preload the game music
         this.load.audio('gameMusic', 'assets/sounds/GameMusic.wav');
-
+        this.load.audio('buttonEffect', 'assets/sounds/buttoneffect.mp3');
         // Preload any other assets (images, particles, etc.) here
     }
 
@@ -41,7 +41,15 @@ class IntroScene extends Phaser.Scene {
         let startButton = this.add.text(this.cameras.main.centerX, 400, 'Start Game', { fontFamily: '"Luckiest Guy"', fontSize: '32px', fill: '#ff69b4' }).setInteractive().setOrigin(0.5);
         startButton.on('pointerover', () => startButton.setStyle({ fill: '#ff1493'}));
         startButton.on('pointerout', () => startButton.setStyle({ fill: '#ff69b4'}));
-        startButton.on('pointerdown', () => this.scene.start('MainScene'));
+        startButton.on('pointerdown', () => {
+            // Play the button click sound effect
+            this.sound.play('buttonEffect', {
+                volume: 1.0 // Adjust the volume as needed
+            });
+
+            // Then start the MainScene or any other logic you have for the button click
+            this.scene.start('MainScene');
+        });
 
         // Play the preloaded game music
         this.sound.play('gameMusic', {
