@@ -1,7 +1,7 @@
 const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 1000,
+    height: 900,
     physics: {
         default: 'arcade',
         arcade: {
@@ -31,6 +31,7 @@ function preload() {
     this.load.image('grassCliffLeft', 'assets/grass/grassCliffLeft.png');
     this.load.image('grassCliffRight', 'assets/grass/grassCliffRight.png');
 
+    this.load.image('sky', 'assets/sky.png')
     this.load.image('ghost_dead', 'assets/enemies/ghost_dead.png');
     this.load.image('ghost_hit', 'assets/enemies/ghost_hit.png');
     this.load.image('ghost_normal', 'assets/enemies/ghost_normal.png');
@@ -44,40 +45,22 @@ function preload() {
 }
 
 function create() {
-    // Create platforms using the grass tiles
+    this.add.image(1000, 900, 'sky');
+
     const platforms = this.physics.add.staticGroup();
-    for (let i = 0; i < 800; i += 70) { // Adjust based on your tile size
-        platforms.create(i, 550, 'grassCenter').setScale(0.5).refreshBody(); // Example of creating ground
+
+    // Assuming  tiles are 70 pixels wide and scale 0.5, their effective width is 35 pixels.
+    // Adjust the loop to match this width.
+    for (let i = 0; i < 800; i += 35) { // Adjusted for scaled size
+        platforms.create(i, 550, 'grassCenter').setScale(0.5).refreshBody();
     }
 
-    platforms.create(400, 400, 'grassCenter_rounded').setScale(0.5).refreshBody(); // Example of a higher platform
+    platforms.create(400, 400, 'grassCenter_rounded').setScale(0.5).refreshBody();
 
-    // Player setup
-    player = this.physics.add.sprite(100, 450, 'character');
+    player = this.physics.add.sprite(100, 450, 'chiikawa', 'chiikawaFront.png').setScale(0.25);
     player.setBounce(0.2);
     player.setCollideWorldBounds(true);
     this.physics.add.collider(player, platforms);
-
-    // Player animations
-    this.anims.create({
-        key: 'left',
-        frames: this.anims.generateFrameNumbers('character', { start: 0, end: 3 }),
-        frameRate: 10,
-        repeat: -1
-    });
-
-    this.anims.create({
-        key: 'turn',
-        frames: [ { key: 'character', frame: 4 } ],
-        frameRate: 20
-    });
-
-    this.anims.create({
-        key: 'right',
-        frames: this.anims.generateFrameNumbers('character', { start: 5, end: 8 }),
-        frameRate: 10,
-        repeat: -1
-    });
 
     cursors = this.input.keyboard.createCursorKeys();
 
@@ -93,6 +76,7 @@ function create() {
     ghost.setCollideWorldBounds(true);
     ghost.setBounce(1, 0); // Make the ghost bounce off world bounds
 
+    this.physics.add.collider(player, platforms);
     this.physics.add.collider(slimes, platforms);
     this.physics.add.collider(ghosts, platforms);
     this.physics.add.collider(player, slimes, hitSlime, null, this);
@@ -128,8 +112,6 @@ function create() {
         frameRate: 20
     });
 
-    // Assuming you have a variable for the player character
-    player = this.physics.add.sprite(100, 450, 'chiikawa', 'chiikawaFront.png');
 }
 
 function hitSlime(player, slime) {
