@@ -6,17 +6,28 @@ class IntroScene extends Phaser.Scene {
     preload() {
         // Preloading the title screen background along with the other assets
         this.load.image('titleScreenBackground', 'assets/backgrounds/TitleScreen.png');
+        this.load.image('TitleScreenForeground', 'assets/backgrounds/TitleScreenForeground.png');
         this.load.audio('gameMusic', 'assets/sounds/GameMusic.wav');
         this.load.audio('buttonClick', 'assets/sounds/buttoneffect.mp3');
     }
 
     create() {
-
         // Adding the title screen background image
-        this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'titleScreenBackground').setOrigin(0.5);
+        let bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'titleScreenBackground').setOrigin(0.5);
+    
+        // Calculate the scale required for the image to fill the screen
+        let scaleX = this.cameras.main.width / bg.width;
+        let scaleY = this.cameras.main.height / bg.height;
+        let scale = Math.max(scaleX, scaleY);
+        bg.setScale(scale).setScrollFactor(0);
+
+
+        // Adding and scaling the title screen foreground image
+        let fg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'TitleScreenForeground').setOrigin(0.5);
+        fg.setScale(scale).setScrollFactor(0);
 
         // Displaying animated game title
-        let titleText = this.add.text(this.cameras.main.centerX, 100, 'Welcome to Chiikawa The Slayer!', { fontFamily: '"Luckiest Guy"', fontSize: '48px', fill: '#ff1493' }).setOrigin(0.5);
+        let titleText = this.add.text(this.cameras.main.centerX, 100, 'Chiikawa The Slayer!', { fontFamily: '"Luckiest Guy"', fontSize: '48px', fill: '#ff1493' }).setOrigin(0.5);
         this.tweens.add({
             targets: titleText,
             y: 120,
