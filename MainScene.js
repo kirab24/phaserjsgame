@@ -158,14 +158,20 @@ class MainScene extends Phaser.Scene {
             player.setVelocityY(-100); 
             slime.setTexture('slime_squashed'); 
             this.sound.play('slimeJump');
+            slime.disableBody(true, false); 
             this.time.delayedCall(500, () => {
-                slime.disableBody(true, true); 
+                slime.setVisible(false); 
             });
+    
             this.slimesKilled++;
             this.slimesKilledText.setText('Slimes Killed: ' + this.slimesKilled);
-            if (this.slimesKilled < 15 && this.slimes.countActive(true) === 0) {
-                this.spawnSlimes(); // Respawn slimes if all dead
-            }
+    
+            this.time.delayedCall(10, () => {
+                if (this.slimesKilled < 15 && this.slimes.countActive(true) === 0) {
+                    this.spawnSlimes();
+                }
+            });
+    
             if (this.slimesKilled >= 15) {
                 this.scene.start('WinScene');
             }
@@ -173,6 +179,7 @@ class MainScene extends Phaser.Scene {
             this.resetGame(); // Player dies if not landing on top
         }
     }
+    
     
 
 
