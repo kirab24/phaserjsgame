@@ -53,7 +53,7 @@ class IntroScene extends Phaser.Scene {
         this.hachiBack = this.add.sprite(370, 400, 'hachiwareBack', 'HachiwareBack.png').setScale(0.2);
         this.tweens.add({
             targets: this.hachiBack,
-            y: 80,
+            y: 10,
             duration: 800,
             ease: 'Power1',
             yoyo: true,
@@ -63,7 +63,7 @@ class IntroScene extends Phaser.Scene {
         this.hachiFront = this.add.sprite(630, 400, 'hachiwareFront', 'HachiwareFront.png').setScale(0.2);
         this.tweens.add({
             targets: this.hachiFront,
-            y: 80,
+            y: 10,
             duration: 800,
             ease: 'Power1',
             yoyo: true,
