@@ -51,6 +51,20 @@ class MainScene extends Phaser.Scene {
             this.platforms.create(i, 550, 'grass').setScale(0.5).refreshBody();
         }
         this.platforms.create(500, 400, 'grass').setScale(0.5).refreshBody();
+
+        
+        // Function to create a platform of a specified width (in tiles)
+        const createWidePlatform = (x, y, width) => {
+            for (let i = 0; i < width; i++) {
+                this.platforms.create(x + (i * 35), y, 'grass').setScale(0.5).refreshBody();
+            }
+        };
+
+        // Elevated platforms, 5 tiles wide
+        createWidePlatform(50, 450, 5); 
+        createWidePlatform(800, 450, 5); 
+
+
     
         this.player = this.physics.add.sprite(500, 350, 'chiikawa', 'chiikawaFront.png').setScale(0.2);
         this.player.setBounce(0.2);
@@ -175,7 +189,7 @@ class MainScene extends Phaser.Scene {
         }
 
         if (this.cursors.up.isDown && this.player.body.touching.down) {
-            this.player.setVelocityY(-200);
+            this.player.setVelocityY(-250);
          }
          
          this.slimes.children.iterate((slime) => {

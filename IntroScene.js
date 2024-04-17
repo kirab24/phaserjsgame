@@ -30,7 +30,7 @@ class IntroScene extends Phaser.Scene {
         fg.setScale(scale).setScrollFactor(0);
 
         // Displaying animated game title
-        let titleText = this.add.text(this.cameras.main.centerX, 100, 'Chiikawa The Slayer!', { fontFamily: '"Luckiest Guy"', fontSize: '48px', fill: '#ff1493' }).setOrigin(0.5);
+        let titleText = this.add.text(this.cameras.main.centerX, 100, 'Slime Jumper', { fontFamily: '"Luckiest Guy"', fontSize: '48px', fill: '#ff1493' }).setOrigin(0.5);
         this.tweens.add({
             targets: titleText,
             y: 120,
