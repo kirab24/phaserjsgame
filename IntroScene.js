@@ -50,7 +50,7 @@ class IntroScene extends Phaser.Scene {
             ease: 'Power2'
         });
 
-        this.hachiBack = this.add.sprite(400, 400, 'hachiwareBack', 'HachiwareBack.png').setScale(0.2);
+        this.hachiBack = this.add.sprite(370, 400, 'hachiwareBack', 'HachiwareBack.png').setScale(0.2);
         this.hachiFront = this.add.sprite(630, 400, 'hachiwareFront', 'HachiwareFront.png').setScale(0.2);
 
         // Start game button with hover effect and sound
