@@ -31,6 +31,10 @@ class MainScene extends Phaser.Scene {
 
         this.load.atlas('chiikawa', 'assets/Chiikawa/spritesheetChiikawa.png', 'assets/Chiikawa/spritesheetChiikawa.json');
         this.load.image('background', 'assets/backgrounds/Main.png');
+         
+        this.load.audio('slimeJump', 'assets/sounds/impactGeneric_light_004.ogg');
+        this.load.audio('playerJump', 'assets/sounds/phaserUp2.ogg');
+
     }
 
     create() {
@@ -154,6 +158,7 @@ class MainScene extends Phaser.Scene {
         if (player.body.touching.down && slime.body.touching.up) {
             player.setVelocityY(-100); // Bounce off
             slime.setTexture('slime_squashed'); // Change to squashed texture
+            this.sound.play('slimeJump');
             this.time.delayedCall(500, () => {
                 slime.disableBody(true, true); // Remove slime after a delay
             });
@@ -190,6 +195,7 @@ class MainScene extends Phaser.Scene {
 
         if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-250);
+            this.sound.play('playerJump');
          }
          
          this.slimes.children.iterate((slime) => {
