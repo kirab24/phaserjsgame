@@ -50,8 +50,8 @@ class IntroScene extends Phaser.Scene {
             ease: 'Power2'
         });
 
-        this.hachiBack = this.physics.add.sprite(500, 350, 'hachiwareBack', 'HachiwareBack.png').setScale(0.2);
-        this.hachiFront = this.physics.add.sprite(500, 350, 'hachiwareFront', 'HachiwareFront.png').setScale(0.2);
+        this.hachiBack = this.sprite(500, 350, 'hachiwareBack', 'HachiwareBack.png').setScale(0.2);
+        this.hachiFront = this.sprite(500, 350, 'hachiwareFront', 'HachiwareFront.png').setScale(0.2);
 
         // Start game button with hover effect and sound
         let startButton = this.add.text(this.cameras.main.centerX, 400, 'Start Game', { fontFamily: '"Luckiest Guy"', fontSize: '32px', fill: '#ff69b4' }).setInteractive().setOrigin(0.5);
