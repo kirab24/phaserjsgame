@@ -7,7 +7,7 @@ class IntroScene extends Phaser.Scene {
         // Preloading the title screen background along with the other assets
         this.load.image('titleScreenBackground', 'assets/backgrounds/TitleScreen.png');
         this.load.image('TitleScreenForeground', 'assets/backgrounds/TitleScreenForeground.png');
-        this.load.audio('gameMusic', 'assets/sounds/GameMusic.wav');
+        this.load.audio('gameMusic', 'assets/sounds/Cheerful Annoyance.ogg');
         this.load.audio('buttonClick', 'assets/sounds/buttoneffect.mp3');
         this.load.audio('buttonClick', 'assets/sounds/buttoneffect.mp3');
         this.load.image('hachiwareFront', 'assets/Hachiware/hachiwareFront.png');

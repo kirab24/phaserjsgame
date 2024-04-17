@@ -1,14 +1,13 @@
 class MainScene extends Phaser.Scene {
     constructor() {
         super({ key: 'MainScene' });
-        // Declare variables as class properties here
         this.player = null;
         this.cursors = null;
         this.slimes = null;
         this.ghosts = null;
         this.platforms = null;
-        this.slimesKilled = 0; // Counter for the slimes killed
-        this.slimesKilledText = null; // Text object for displaying the count
+        this.slimesKilled = 0; 
+        this.slimesKilledText = null;
     }
 
 
@@ -149,26 +148,26 @@ class MainScene extends Phaser.Scene {
             slime.setBounce(0.5);
             slime.setCollideWorldBounds(true);
             slime.setVelocityX(Phaser.Math.Between(-50, 50));
-            slime.direction = slime.body.velocity.x > 0 ? 1 : -1; // Determine initial direction
+            slime.direction = slime.body.velocity.x > 0 ? 1 : -1; 
         }
     }
 
 
     hitSlime(player, slime) {
         if (player.body.touching.down && slime.body.touching.up) {
-            player.setVelocityY(-100); // Bounce off
-            slime.setTexture('slime_squashed'); // Change to squashed texture
+            player.setVelocityY(-100); 
+            slime.setTexture('slime_squashed'); 
             this.sound.play('slimeJump');
             this.time.delayedCall(500, () => {
-                slime.disableBody(true, true); // Remove slime after a delay
+                slime.disableBody(true, true); 
             });
             this.slimesKilled++;
             this.slimesKilledText.setText('Slimes Killed: ' + this.slimesKilled);
             if (this.slimesKilled < 15 && this.slimes.countActive(true) === 0) {
-                this.spawnSlimes(); // Respawn slimes if needed
+                this.spawnSlimes(); // Respawn slimes if all dead
             }
             if (this.slimesKilled >= 15) {
-                console.log('You win!'); // Handle winning condition
+                this.scene.start('WinScene');
             }
         } else {
             this.resetGame(); // Player dies if not landing on top
@@ -204,13 +203,12 @@ class MainScene extends Phaser.Scene {
     }
 
     showDeathScreen() {
-        // Create a semi-transparent overlay
         this.add.rectangle(500, 300, 1000, 600, 0xC8A2C8, 0.5);
     
         let deathText = this.add.text(500, 200, 'You Died!', { 
             fontFamily: '"Luckiest Guy"', 
             fontSize: '64px', 
-            fill: '#ff1493' // Soft pink color for a cute look
+            fill: '#ff1493' 
         }).setOrigin(0.5);
     
         let restartButton = this.add.text(500, 350, 'Restart', { 
@@ -220,9 +218,8 @@ class MainScene extends Phaser.Scene {
         }).setInteractive({ useHandCursor: true }) 
           .setOrigin(0.5);
     
-        // When the restart button is clicked, restart the game
         restartButton.on('pointerdown', () => {
-            this.scene.restart(); // Restart the current scene
+            this.scene.restart();
         });
     
         // button to go back to the main menu/intro screen
@@ -233,9 +230,9 @@ class MainScene extends Phaser.Scene {
         }).setInteractive({ useHandCursor: true })
           .setOrigin(0.5);
     
-        // When the main menu button is clicked, start the intro scene
         mainMenuButton.on('pointerdown', () => {
-            this.scene.start('IntroScene'); // Transition to the IntroScene
+            this.sound.stopAll();
+            this.scene.start('IntroScene'); 
         });
     }
     
@@ -243,7 +240,8 @@ class MainScene extends Phaser.Scene {
 
 
      resetGame() {
-        this.showDeathScreen.call(this); // Show the death screen
+         this.showDeathScreen.call(this); 
+         
     }
 }
 
@@ -258,7 +256,7 @@ const config = {
             debug: false
         }
     },
-    scene: [IntroScene, MainScene] // Include the intro scene and main scene in the configuration
+    scene: [IntroScene, MainScene, WinScene]
 };
 
 const game = new Phaser.Game(config);
