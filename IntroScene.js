@@ -9,6 +9,8 @@ class IntroScene extends Phaser.Scene {
         this.load.image('TitleScreenForeground', 'assets/backgrounds/TitleScreenForeground.png');
         this.load.audio('gameMusic', 'assets/sounds/GameMusic.wav');
         this.load.audio('buttonClick', 'assets/sounds/buttoneffect.mp3');
+        this.load.audio('buttonClick', 'assets/sounds/buttoneffect.mp3');
+        this.load.atlas('hachiware', 'assets/Hachiware/spritesheetHachiware.png', 'assets/Hachiware/spritesheetHachiware.json');
     }
 
     create() {
@@ -47,6 +49,9 @@ class IntroScene extends Phaser.Scene {
             ease: 'Power2'
         });
 
+        this.hachiBack = this.physics.add.sprite(500, 350, 'hachiware', 'HachiwareBack.png').setScale(0.2);
+        this.hachiFront = this.physics.add.sprite(500, 350, 'hachiware', 'HachiwareFront.png').setScale(0.2);
+
         // Start game button with hover effect and sound
         let startButton = this.add.text(this.cameras.main.centerX, 400, 'Start Game', { fontFamily: '"Luckiest Guy"', fontSize: '32px', fill: '#ff69b4' }).setInteractive().setOrigin(0.5);
         startButton.on('pointerover', () => startButton.setStyle({ fill: '#ff1493'}));
@@ -55,6 +60,7 @@ class IntroScene extends Phaser.Scene {
             this.sound.play('buttonClick', { volume: 1.0 }); // Play button click sound
             this.scene.start('MainScene'); // Transition to MainScene
         });
+        
 
         // Play the background music loaded in the preload method
         this.sound.play('gameMusic', {
