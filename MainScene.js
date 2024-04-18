@@ -27,6 +27,11 @@ class MainScene extends Phaser.Scene {
         this.load.image('slime_squashed', 'assets/enemies/slime_squashed.png');
         this.load.image('slime_walk', 'assets/enemies/slime_walk.png');
         this.load.image('slime', 'assets/enemies/slime.png');
+         
+        this.load.image('cloud1', 'assets/extras/cloud1.png')
+        this.load.image('cloud2', 'assets/extras/cloud6.png')
+        this.load.image('tree', 'assets/extras/tree23.png')
+        this.load.image('house', 'assets/extras/house_grey_side.png')
 
         this.load.atlas('chiikawa', 'assets/Chiikawa/spritesheetChiikawa.png', 'assets/Chiikawa/spritesheetChiikawa.json');
         this.load.image('background', 'assets/backgrounds/Main.png');
@@ -44,6 +49,16 @@ class MainScene extends Phaser.Scene {
         let scaleY = this.cameras.main.height / bg.height;
         let scale = Math.max(scaleX, scaleY);
         bg.setScale(scale).setScrollFactor(0);
+
+        // Tree on the first platform
+        this.add.image(100 + (35 * 2.5), 450 - 120, 'tree').setScale(0.75); 
+
+        // House on the second platform
+        this.add.image(800 + (35 * 2.5), 450 - 50, 'house').setScale(0.5);
+
+        this.add.image(100, 100, 'cloud1'); 
+        this.add.image(900, 150, 'cloud2');
+
 
 
         this.slimesKilled = 0;
