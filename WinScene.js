@@ -30,6 +30,7 @@ class WinScene extends Phaser.Scene {
 
         mainMenuButton.on('pointerdown', () => {
             this.scene.start('IntroScene'); 
+            this.sound.stopAll();
         });
     }
 }

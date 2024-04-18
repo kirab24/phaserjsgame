@@ -66,8 +66,6 @@ class MainScene extends Phaser.Scene {
         // Elevated platforms, 5 tiles wide
         createWidePlatform(50, 450, 5); 
         createWidePlatform(800, 450, 5); 
-
-
     
         this.player = this.physics.add.sprite(500, 350, 'chiikawa', 'chiikawaFront.png').setScale(0.2);
         this.player.setBounce(0.2);
@@ -93,6 +91,10 @@ class MainScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.slimes, this.hitSlime, null, this);
         this.physics.add.collider(this.player, this.ghosts, this.avoidGhost, null, this);
         this.physics.add.collider(this.player, this.platforms);
+
+
+        this.playerPlatformCollider = this.physics.add.collider(this.player, this.platforms);
+
 
         this.anims.create({
             key: 'left',
@@ -246,8 +248,12 @@ class MainScene extends Phaser.Scene {
 
 
 
-     resetGame() {
-         this.showDeathScreen.call(this); 
+    resetGame() {
+        this.physics.world.removeCollider(this.playerPlatformCollider);
+        this.player.disableBody(true, false);
+        this.slimes.clear(true, true);
+        this.ghosts.clear(true, true);
+        this.showDeathScreen.call(this); 
          
     }
 }
