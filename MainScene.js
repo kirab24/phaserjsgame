@@ -48,38 +48,45 @@ class MainScene extends Phaser.Scene {
         let scale = Math.max(scaleX, scaleY);
         bg.setScale(scale).setScrollFactor(0);
 
-        // Tree on the first platform
+        // tree sprite on first platform
         this.add.image(100 + (35 * 2.5), 450 - 120, 'tree').setScale(0.75); 
 
-        // House on the second platform
+        // house sprite on second platform
         this.add.image(800 + (35 * 2.5), 450 - 50, 'house').setScale(0.5);
 
+
+        // extra clouds for sky for funsies
         this.add.image(100, 100, 'cloud1'); 
         this.add.image(900, 150, 'cloud2');
 
-
-
+        // handles goofy slimes killed text
         this.slimesKilled = 0;
         this.slimesKilledText = this.add.text(16, 16, 'Slimes Killed: 0', { fontSize: '32px', fill: '#000' });
     
         this.platforms = this.physics.add.staticGroup();
+
+        // main floor
         for (let i = 0; i < 1000; i += 35) {
             this.platforms.create(i, 550, 'grass').setScale(0.5).refreshBody();
         }
+        
+        // spawn platform
         this.platforms.create(500, 400, 'grass').setScale(0.5).refreshBody();
 
         
         // Function to create a platform of a specified width (in tiles)
+        // used for the set tile scale
         const createWidePlatform = (x, y, width) => {
             for (let i = 0; i < width; i++) {
                 this.platforms.create(x + (i * 35), y, 'grass').setScale(0.5).refreshBody();
             }
         };
 
-        // Elevated platforms, 5 tiles wide
+        // elevated platforms, 5 tiles wide
         createWidePlatform(50, 450, 5); 
         createWidePlatform(800, 450, 5); 
     
+        // add player sprite 
         this.player = this.physics.add.sprite(500, 350, 'chiikawa', 'chiikawaFront.png').setScale(0.2);
         this.player.setBounce(0.2);
         this.player.setCollideWorldBounds(true);
@@ -89,6 +96,7 @@ class MainScene extends Phaser.Scene {
         this.slimes = this.physics.add.group();
         this.spawnSlimes();
         
+        // spawning in the 3 ghosts
         this.ghosts = this.physics.add.group({
             key: 'ghost_normal',
             repeat: 2, 
@@ -99,6 +107,7 @@ class MainScene extends Phaser.Scene {
             ghost.setCollideWorldBounds(true).setBounce(1, 0);
         });
         
+        // adding colliders 
         this.physics.add.collider(this.slimes, this.platforms);
         this.physics.add.collider(this.ghosts, this.platforms);
         this.physics.add.collider(this.player, this.slimes, this.hitSlime, null, this);
@@ -106,9 +115,11 @@ class MainScene extends Phaser.Scene {
         this.physics.add.collider(this.player, this.platforms);
 
 
+        // cant remember if i needed this or removed this 
         this.playerPlatformCollider = this.physics.add.collider(this.player, this.platforms);
 
 
+        // running left sprite 
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNames('chiikawa', {
@@ -118,6 +129,7 @@ class MainScene extends Phaser.Scene {
             repeat: -1
         });
 
+        //running right sprite
         this.anims.create({
             key: 'right',
             frames: this.anims.generateFrameNames('chiikawa', {
@@ -127,12 +139,14 @@ class MainScene extends Phaser.Scene {
             repeat: -1
         });
 
+        //facing front 
         this.anims.create({
             key: 'front',
             frames: [{ key: 'chiikawa', frame: 'chiikawaFront.png' }],
             frameRate: 20
         });
 
+        //facing back (never ended up using)
         this.anims.create({
             key: 'back',
             frames: [{ key: 'chiikawa', frame: 'chiikawaBack.png' }],
@@ -140,6 +154,7 @@ class MainScene extends Phaser.Scene {
         });
     }
 
+    // method to have slime change sprite direction when hitting the wall
     updateSlimeMovement(slime) {
         // Check if slime is moving left or right and flip accordingly
         if (slime.body.velocity.x < 0) {
@@ -155,6 +170,7 @@ class MainScene extends Phaser.Scene {
         slime.setVelocityX(50 * slime.direction);
     }
 
+    // method to spawn random slimes
     spawnSlimes() {
         const numSlimes = Phaser.Math.Between(2, 5);
         for (let i = 0; i < numSlimes; i++) {
@@ -167,7 +183,7 @@ class MainScene extends Phaser.Scene {
         }
     }
 
-
+    // function to handle hitting slimes & killing them (or not)
     hitSlime(player, slime) {
         if (player.body.touching.down && slime.body.touching.up) {
             player.setVelocityY(-100); 
@@ -195,14 +211,13 @@ class MainScene extends Phaser.Scene {
         }
     }
     
-    
-
-
-     avoidGhost(player, ghost) {
+    // function to kill player if hitting ghost
+    avoidGhost(player, ghost) {
         this.resetGame.call(this); // Reset game on any collision with a ghost
     }
 
-     update() {
+    // update function that handles cursor input & slime sprite updates
+    update() {
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
             this.player.anims.play('left', true);
@@ -217,13 +232,14 @@ class MainScene extends Phaser.Scene {
         if (this.cursors.up.isDown && this.player.body.touching.down) {
             this.player.setVelocityY(-250);
             this.sound.play('playerJump');
-         }
+        }
          
-         this.slimes.children.iterate((slime) => {
+        this.slimes.children.iterate((slime) => {
             this.updateSlimeMovement(slime);
         });
     }
 
+    // function that handles the death screen popping up
     showDeathScreen() {
         this.add.rectangle(500, 300, 1000, 600, 0xC8A2C8, 0.5);
     
@@ -261,6 +277,8 @@ class MainScene extends Phaser.Scene {
 
 
 
+    // janky resetgame, stops player from moving so death screen doesnt
+    // double layer transparents
     resetGame() {
         this.physics.world.removeCollider(this.playerPlatformCollider);
         this.player.disableBody(true, false);
@@ -271,6 +289,8 @@ class MainScene extends Phaser.Scene {
     }
 }
 
+
+// phaser3 config stuffs
 const config = {
     type: Phaser.AUTO,
     width: 1000,

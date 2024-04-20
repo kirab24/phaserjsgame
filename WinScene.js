@@ -10,14 +10,14 @@ class WinScene extends Phaser.Scene {
     create() {
         let background = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'winScreen').setOrigin(0.5);
 
-        // Display a "You Win!" message
+        // 'you win' text
         let winText = this.add.text(500, 200, 'You Win!', {
             fontFamily: '"Luckiest Guy"',
             fontSize: '64px',
             fill: '#87CEEB'
         }).setOrigin(0.5);
 
-        // Button to go back to the main menu
+        // send back to main menu button
         let mainMenuButton = this.add.text(500, 350, 'Main Menu', {
             fontFamily: '"Luckiest Guy"',
             fontSize: '32px',
@@ -25,6 +25,7 @@ class WinScene extends Phaser.Scene {
         }).setInteractive({ useHandCursor: true })
           .setOrigin(0.5);
 
+        // main menu button clicky
         mainMenuButton.on('pointerdown', () => {
             this.scene.start('IntroScene'); 
             this.sound.stopAll();
