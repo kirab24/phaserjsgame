@@ -8,8 +8,6 @@ class WinScene extends Phaser.Scene {
     }
 
     create() {
-        this.add.rectangle(500, 300, 1000, 600, 0x000000, 0.5);
-
         let background = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'winScreen').setOrigin(0.5);
 
         // Display a "You Win!" message

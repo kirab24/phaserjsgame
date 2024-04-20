@@ -19,4 +19,4 @@ Before trying to run the game, make sure you have Node.js and npm (Node Package 
 
 In a terminal, navigate to the project directory, or in the folder in file explorer, right click and hit 'Open in Terminal'. 
 
-If you do not have live-server already installed, you can do  `npm install -g live-server` and then simply type 'live-server' . This is all you need to do to be able to play the game in your browser!
+If you do not have live-server already installed, you can do  `npm install -g live-server` and then simply type `live-server`. This is all you need to do to be able to play the game in your browser!
