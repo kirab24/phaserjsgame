@@ -9,27 +9,26 @@ class IntroScene extends Phaser.Scene {
         this.load.image('TitleScreenForeground', 'assets/backgrounds/TitleScreenForeground.png');
         this.load.audio('gameMusic', 'assets/sounds/Cheerful Annoyance.ogg');
         this.load.audio('buttonClick', 'assets/sounds/buttoneffect.mp3');
-        this.load.audio('buttonClick', 'assets/sounds/buttoneffect.mp3');
         this.load.image('hachiwareFront', 'assets/Hachiware/hachiwareFront.png');
         this.load.image('hachiwareBack', 'assets/Hachiware/hachiwareBack.png');
     }
 
     create() {
-        // Adding the title screen background image
+        // Title screen bg image
         let bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'titleScreenBackground').setOrigin(0.5);
     
-        // Calculate the scale required for the image to fill the screen
+        // Scale required to fill screen
         let scaleX = this.cameras.main.width / bg.width;
         let scaleY = this.cameras.main.height / bg.height;
         let scale = Math.max(scaleX, scaleY);
         bg.setScale(scale).setScrollFactor(0);
 
 
-        // Adding and scaling the title screen foreground image
+        // scaling and adding foreground image
         let fg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'TitleScreenForeground').setOrigin(0.5);
         fg.setScale(scale).setScrollFactor(0);
 
-        // Displaying animated game title
+        // displaying & animating title 
         let titleText = this.add.text(this.cameras.main.centerX, 100, 'Slime Jumper', { fontFamily: '"Luckiest Guy"', fontSize: '48px', fill: '#ff1493' }).setOrigin(0.5);
         this.tweens.add({
             targets: titleText,
@@ -40,7 +39,7 @@ class IntroScene extends Phaser.Scene {
             repeat: -1
         });
 
-        // Rules text with a subtle entrance animation
+        // rules text
         let rulesText = this.add.text(this.cameras.main.centerX, 200, 'Rules:\n1. Avoid ghosts.\n2. Jump on slimes to defeat them.\n3. Win by defeating 15 slimes.', { fontFamily: '"Luckiest Guy"', fontSize: '24px', fill: '#fff' }).setOrigin(0.5);
         rulesText.alpha = 0;
         this.tweens.add({
@@ -50,6 +49,7 @@ class IntroScene extends Phaser.Scene {
             ease: 'Power2'
         });
 
+        // sprite back w funky animation
         this.hachiBack = this.add.sprite(370, 400, 'hachiwareBack', 'HachiwareBack.png').setScale(0.2);
         this.tweens.add({
             targets: this.hachiBack,
@@ -59,7 +59,8 @@ class IntroScene extends Phaser.Scene {
             yoyo: true,
             repeat: -1
         });
-
+        
+        //sprite front w funky animation
         this.hachiFront = this.add.sprite(630, 400, 'hachiwareFront', 'HachiwareFront.png').setScale(0.2);
         this.tweens.add({
             targets: this.hachiFront,
@@ -75,12 +76,12 @@ class IntroScene extends Phaser.Scene {
         startButton.on('pointerover', () => startButton.setStyle({ fill: '#ff1493'}));
         startButton.on('pointerout', () => startButton.setStyle({ fill: '#ff69b4'}));
         startButton.on('pointerdown', () => {
-            this.sound.play('buttonClick', { volume: 1.0 }); // Play button click sound
-            this.scene.start('MainScene'); // Transition to MainScene
+            this.sound.play('buttonClick', { volume: 1.0 }); 
+            this.scene.start('MainScene');
         });
         
 
-        // Play the background music loaded in the preload method
+        // Play the background music
         this.sound.play('gameMusic', {
             loop: true,
             volume: 0.5

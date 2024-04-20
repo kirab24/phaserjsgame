@@ -11,37 +11,35 @@ class MainScene extends Phaser.Scene {
     }
 
 
-     preload() {
+    preload() {
+         
+        // platform tile texture 
         this.load.image('grass', 'assets/grass/grass.png');
-        this.load.image('grassCenter_rounded', 'assets/grass/grassCenter_rounded.png');
-        this.load.image('grassCenter', 'assets/grass/grassCenter.png');
-        this.load.image('grassCliffLeft', 'assets/grass/grassCliffLeft.png');
-        this.load.image('grassCliffRight', 'assets/grass/grassCliffRight.png');
-
-        this.load.image('sky', 'assets/sky.png');
-        this.load.image('ghost_dead', 'assets/enemies/ghost_dead.png');
-        this.load.image('ghost_hit', 'assets/enemies/ghost_hit.png');
+        
+        // enemy sprites
         this.load.image('ghost_normal', 'assets/enemies/ghost_normal.png');
-        this.load.image('ghost', 'assets/enemies/ghost.png');
-        this.load.image('slime_dead', 'assets/enemies/slime_dead.png');
         this.load.image('slime_squashed', 'assets/enemies/slime_squashed.png');
-        this.load.image('slime_walk', 'assets/enemies/slime_walk.png');
         this.load.image('slime', 'assets/enemies/slime.png');
          
+        // background & scene images
+        this.load.image('background', 'assets/backgrounds/Main.png');
         this.load.image('cloud1', 'assets/extras/cloud1.png')
         this.load.image('cloud2', 'assets/extras/cloud6.png')
         this.load.image('tree', 'assets/extras/tree23.png')
         this.load.image('house', 'assets/extras/house_grey_side.png')
 
+        // load spritesheet
         this.load.atlas('chiikawa', 'assets/Chiikawa/spritesheetChiikawa.png', 'assets/Chiikawa/spritesheetChiikawa.json');
-        this.load.image('background', 'assets/backgrounds/Main.png');
          
+        // load audio 
         this.load.audio('slimeJump', 'assets/sounds/impactGeneric_light_004.ogg');
         this.load.audio('playerJump', 'assets/sounds/phaserUp2.ogg');
 
     }
 
     create() {
+
+        //bg image 
         let bg = this.add.image(this.cameras.main.centerX, this.cameras.main.centerY, 'background').setOrigin(0.5);
     
         // Calculate the scale required for the image to fill the screen
